@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<div class="content my-4">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Liste des Interventions</span>
+        </div>
+        <div class="card-body">
+
+            {% if is_granted('ROLE_OPERATEUR') %}
+                <div class="mb-3 d-flex justify-content-end">
+                    <a href="{{ path('demandes_add') }}" class="btn btn-success">Ajouter</a>
+                </div>
+            {% endif %}
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>CreatedAt</th>
+                            <th>Site</th>
+                            <th>Service</th>
+                            <th>Equipement</th>
+                            <th>PlannedAt</th>
+                            <th>StartedAt</th>
+                            <th>FinishedAt</th>
+                            <th>Comment</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for intervention in interventions %}
+                            <tr>
+                                <td> <a href="{{ path('interventions_show', {'id': intervention.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ intervention.id }}</a> </td>
+                                <td>{{ intervention.createdAt | date("d/m/Y") }}</td>
+                                <td>{{ intervention.equipement.site.name }}</td>
+                                <td>{{ intervention.equipement.service }}</td>
+                                <td>{{ intervention..equipement.name }}</td>
+                                <td>{{ intervention.PlannedAt | date("d/m/Y") }}</td>
+                                <td>{{ intervention.startedAt | date("d/m/Y") }}</td>
+                                <td>{{ intervention.finishedAt | date("d/m/Y") }}</td>
+                                <td>{{ intervention.comment }}</td>
+                                <td>{{ intervention.state }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<div class="content my-4">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Liste des Demandes</span>
+        </div>
+        <div class="card-body">
+
+            {% if is_granted('ROLE_OPERATEUR') %}
+                <div class="mb-3 d-flex justify-content-end">
+                    <a href="{{ path('demandes_add') }}" class="btn btn-success">Ajouter</a>
+                </div>
+            {% endif %}
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Site</th>
+                            <th>Service</th>
+                            <th>Equipement</th>
+                            <th>Description</th>
+                            <th>Etat</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for demande in demandes %}
+                            <tr>
+                                <td> <a href="{{ path('demandes_show', {'id': demande.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ demande.id }}</a> </td>
+                                <td>{{ demande.createdAt | date("d/m/Y H:i:s") }}</td>
+                                <td>{{ demande.equipement.site.name }}</td>
+                                <td>{{ demande.equipement.service }}</td>
+                                <td>{{ demande.equipement.name }}</td>
+                                <td>{{ demande.description }}</td>
+                                <td>{{ demande.state }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+    </script>
+{% endblock %}

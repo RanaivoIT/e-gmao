@@ -1,0 +1,55 @@
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark bg-success" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Accueil</div>
+                <a class="nav-link" href="">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Dashboard
+                </a>
+                <div class="sb-sidenav-menu-heading">Planning</div>
+                <a class="nav-link" href="{{ path('demandes') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-wrench"></i></div>
+                    Demandes
+                </a>
+                <a class="nav-link" href="{{ path('interventions') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-calendar"></i></div>
+                    Interventions
+                </a>
+                
+                <div class="sb-sidenav-menu-heading">Paramètres</div>
+                <a class="nav-link" href="{{ path('equipements') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
+                    Equipements
+                </a>
+                <a class="nav-link" href="{{ path('colections') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
+                    Collections
+                </a>
+
+                <a class="nav-link" href="{{ path('sites') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-hospital"></i></div>
+                    Sites
+                </a>
+                
+                <div class="sb-sidenav-menu-heading">Rôles</div>
+
+                <a class="nav-link" href="{{ path('administrateurs') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
+                    Administrateurs
+                </a>
+
+                <a class="nav-link" href="{{ path('techniciens') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
+                    Techniciens
+                </a>
+                <a class="nav-link" href="{{ path('operateurs') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    Operateurs
+                </a>
+                
+            </div>
+        </div>
+        
+    </nav>
+</div>

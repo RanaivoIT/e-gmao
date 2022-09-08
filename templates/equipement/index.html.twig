@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<div class="content my-4">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Liste des Equipements</span>
+        </div>
+        <div class="card-body">
+
+            {% if is_granted('ROLE_ADMINISTRATEUR') %}
+                <div class="mb-3 d-flex justify-content-end">
+                    <a href="{{ path('equipements_add') }}" class="btn btn-success">Ajouter</a>
+                </div>
+            {% endif %}
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Collection</th>
+                            <th>Site</th>
+                            <th>Service</th>
+                            <th>Mise en service</th>
+                            <th>Etat</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for equipement in equipements %}
+                            <tr>
+                                <td> <a href="{{ path('admin_equipement_show', {'id': equipement.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ equipement.id }}</a> </td>
+                                <td>{{ equipement.name }}</td>
+                                <td>{{ equipement.colection.name }}</td>
+                                <td>{{ equipement.site.name }}</td>
+                                <td>{{ equipement.service }}</td>
+                                <td>{{ equipement.usedAt | date("d/m/Y") }}</td>
+                                {% if equipement.state == "En service" %}
+                                    <td class=" mb-0 text-success">{{ equipement.state }}</td>
+                                {% endif %}
+                                {% if equipement.state == "En panne" %}
+                                    <td class=" mb-0 text-warning">{{ equipement.state }}</td>
+                                {% endif %}
+                                {% if equipement.state == "Hors service" %}
+                                    <td class="mb-0 text-danger">{{ equipement.state }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+    </script>
+{% endblock %}

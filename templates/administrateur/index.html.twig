@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<div class="content my-4">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Liste des administrateurs</span>
+        </div>
+        <div class="card-body">
+
+            {% if is_granted('ROLE_ADMINISTRATEUR') %}
+                <div class="mb-3 d-flex justify-content-end">
+                    <a href="{{ path('administrateurs_add') }}" class="btn btn-success">Ajouter</a>
+                </div>
+            {% endif %}
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Poste</th>
+                            <th>Email</th>
+                            <th>Adresse</th>
+                            <th>contact</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for administrateur in administrateurs %}
+                            <tr>
+                                <td> <a href="{{ path('administrateurs_show', {'id': administrateur.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ administrateur.id }}</a> </td>
+                                <td>{{ administrateur.firstname }}</td>
+                                <td>{{ administrateur.lastname }}</td>
+                                <td>{{ administrateur.job }}</td>
+                                <td>{{ administrateur.email }}</td>
+                                <td>{{ administrateur.address }}</td>
+                                <td>{{ administrateur.contact }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+    </script>
+{% endblock %}
