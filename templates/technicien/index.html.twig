@@ -9,11 +9,9 @@
         </div>
         <div class="card-body">
 
-            {% if is_granted('ROLE_ADMINISTRATEUR') %}
                 <div class="mb-3 d-flex justify-content-end">
                     <a href="{{ path('techniciens_add') }}" class="btn btn-success">Ajouter</a>
                 </div>
-            {% endif %}
 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -35,7 +33,7 @@
                                 <td> <a href="{{ path('techniciens_show', {'id': technicien.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ technicien.id }}</a> </td>
                                 <td>{{ technicien.firstname }}</td>
                                 <td>{{ technicien.lastname }}</td>
-                                <td>{{ technicien.speciality }}</td>
+                                <td>{{ technicien.job }}</td>
                                 <td>{{ technicien.email }}</td>
                                 <td>{{ technicien.address }}</td>
                                 <td>{{ technicien.contact }}</td>

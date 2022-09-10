@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\PictureType;
 use App\Entity\Technicien;
+use App\Form\TechnicienType;
 use App\Repository\TechnicienRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,13 +29,13 @@ class TechnicienController extends AbstractController
     public function add(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
         $tech = new Technicien();
-        $form = $this->createForm(TechType::class, $tech);
+        $form = $this->createForm(TechnicienType::class, $tech);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
             $tech
-                ->setHash($encoder->hashPassword($tech, "password"))
+                ->setPassword($encoder->hashPassword($tech, "password"))
                 ->setPicture('avatar.png');
                 
             $manager->persist($tech);
@@ -86,7 +88,7 @@ class TechnicienController extends AbstractController
 
         return $this->render('technicien/edit.html.twig', [
             'title' => 'Techniciens - Edit',
-            'tech' => $tech,
+            'technicien' => $tech,
             'form' => $form->createView()
         ]);
     }

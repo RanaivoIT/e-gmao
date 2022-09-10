@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<div class="content my-4">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Liste des Collections</span>
+        </div>
+        <div class="card-body">
+
+                <div class="mb-3 d-flex justify-content-end">
+                    <a href="{{ path('colections_add') }}" class="btn btn-success">Ajouter</a>
+                </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Abreviation</th>
+                            <th>Fabricant</th>
+                            <th>Origine</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for colection in colections %}
+                            <tr>
+                                <td> <a href="{{ path('colections_show', {'id': colection.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ colection.id }}</a> </td>
+                                <td>{{ colection.name }}</td>
+                                <td>{{ colection.abbreviation }}</td>
+                                <td>{{ colection.maker }}</td>
+                                <td>{{ colection.origin }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+
+<div class="content">
+    <div class="card  my-4">
+        <div class="card-header">
+            <span class="card-title h5">Changer l'image du site</span>
+        </div>
+        <div class="card-body">
+
+            {{ form_start(form, {'action': path('sites_picture', {'id': site.id}), 'method': 'POST'}) }}
+
+            {{ form_widget(form) }}
+
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+            <a class="btn btn-secondary" href="{{ path('sites_show', {'id': site.id}) }}">Annuler</a>
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

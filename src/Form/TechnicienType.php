@@ -6,6 +6,7 @@ use App\Entity\Technicien;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class TechnicienType extends AbstractType
 {
@@ -16,13 +17,10 @@ class TechnicienType extends AbstractType
             ->add('lastname')
             ->add('matricule')
             ->add('job')
-            ->add('email')
+            ->add('email', EmailType::class)
             ->add('address')
             ->add('contact')
-            ->add('password')
             ->add('state')
-            ->add('picture')
-            ->add('interventions')
         ;
     }
 

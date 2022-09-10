@@ -1,0 +1,92 @@
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+
+<div class="content">
+    <div class="card  my-4">
+        <div class="card-header">
+            <span class="card-title h5">Voir le site</span>
+        </div>
+        <div class="card-body">
+
+            <div class="row d-flex align-items-stretch">
+                <div class="col-4 card shadow m-2">
+                    
+                    <div class="card-body text-center">
+                        <img src="{{ '/uploads/pictures/' ~ site.picture }}" alt="picture" class="rounded img-fluid" style="width: 200px;">
+                        <h5 class="my-3">{{ site.name }}</h5>
+                        <p class="text-muted mb-1">{{ site.address }}</p>
+                        <p class="text-muted mb-1">{{ site.email }}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <a href=" {{ path('sites_picture', {'id': site.id}) }} " type="button" class="btn btn-warning">Changer l'image</a>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col card shadow m-2">
+                    
+                    <div class="card-body">
+                        <div class="row responsive">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Nom du site</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ site.name }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ site.email }}</p>
+                            </div>
+                        </div>
+                        <hr>                  
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Addresse</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ site.address }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Contact</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ site.contact }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Utilisateurs</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ site.operateurs | length }}</p>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-start">
+                            <a href="{{ path('sites_edit', {'id': site.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                            <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
+                        </div>
+                        
+                    </div>
+
+
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

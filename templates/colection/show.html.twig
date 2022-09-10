@@ -1,0 +1,122 @@
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<div class="content">
+    <div class="card  my-4">
+        <div class="card-header">
+            <span class="card-title h5">Voir la collection</span>
+        </div>
+        <div class="card-body">
+
+            <div class="row d-flex align-items-stretch">
+                <div class="col-4 card shadow m-2">
+                    
+                    <div class="card-body text-center">
+                        <img src="{{ '/uploads/pictures/' ~ colection.picture }}" alt="picture" class="rounded img-fluid" style="width: 200px;">
+                        <h5 class="my-3">{{ colection.name }}</h5>
+                        <p class="text-muted mb-1">{{ colection.maker }}</p>
+                        <p class="text-muted mb-1">{{ colection.origin }}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <a href=" {{ path('colections_picture', {'id': colection.id}) }} " type="button" class="btn btn-warning">Changer l'image</a>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col card shadow m-2">
+                    
+                    <div class="card-body">
+                        <div class="row responsive">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Nom </p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ colection.name }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Fabricant</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ colection.maker }}</p>
+                            </div>
+                        </div>
+                        <hr>                  
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Origine</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ colection.origin }}</p>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Organes</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ colection.organes | length }}</p>
+                            </div>
+                        </div>
+
+                        <hr>
+                        
+                        <div class="d-flex justify-content-start">
+                            <a href="{{ path('colections_edit', {'id': colection.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                            <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
+                        </div>
+                        
+                    </div>   
+                </div>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-header">
+                    <span class="card-title h5">Liste des organes de la collection</span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Pieces</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                {% for organe in colection.organes %}
+                                    <tr>
+                                        <td> <a href="{{ path('organes_edit', {'id': organe.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ organe.id }}</a> </td>
+                                        <td>{{ organe.name }}</td>
+                                        <td>{{ organe.pieces | length }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                
+           
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+    </script>
+{% endblock %}

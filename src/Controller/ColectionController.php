@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Colection;
+use App\Form\PictureType;
 use App\Form\ColectionType;
 use App\Repository\ColectionRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -79,7 +80,7 @@ class ColectionController extends AbstractController
                 "Les informations de la collection <strong>'" . $colection->getName() . "'</strong> ont été modifiés !!!"
             );
 
-            return $this->redirectToRoute('administrateur_colection_show', [
+            return $this->redirectToRoute('colections_show', [
                 'id' => $colection->getId()
             ]);
         }

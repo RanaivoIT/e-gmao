@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\PictureType;
 use App\Entity\Administrateur;
 use App\Form\AdministrateurType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +36,7 @@ class AdministrateurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $admin
-                ->setHash($encoder->hashPassword($admin, "password"))
+                ->setPassword($encoder->hashPassword($admin, "password"))
                 ->setPicture('avatar.png');
                 
             $manager->persist($admin);
@@ -58,7 +59,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
     #[Route('/administrateurs/{id}', name: 'administrateurs_show')]
-    public function show(Admin $admin): Response
+    public function show(Administrateur $admin): Response
     {
         $pictures_url = $this->getParameter('pictures_url');
         return $this->render('administrateur/show.html.twig', [
@@ -68,9 +69,9 @@ class AdministrateurController extends AbstractController
         ]);
     }
     #[Route('/administrateurs/{id}/edit', name: 'administrateurs_edit')]
-    public function edit(Admin $admin, Request $request, EntityManagerInterface $manager): Response
+    public function edit(Administrateur $admin, Request $request, EntityManagerInterface $manager): Response
     {
-        $form = $this->createForm(AdminType::class, $admin);
+        $form = $this->createForm(AdministrateurType::class, $admin);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -95,7 +96,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
     #[Route('/administrateurs/{id}/picture', name: 'administrateurs_picture')]
-    public function picture(Admin $admin, Request $request, EntityManagerInterface $manager): Response
+    public function picture(Administrateur $admin, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(PictureType::class, null);
         $form->handleRequest($request);

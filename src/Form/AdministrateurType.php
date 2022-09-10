@@ -6,6 +6,7 @@ use App\Entity\Administrateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class AdministrateurType extends AbstractType
 {
@@ -17,9 +18,7 @@ class AdministrateurType extends AbstractType
             ->add('job')
             ->add('address')
             ->add('contact')
-            ->add('email')
-            ->add('password')
-            ->add('picture')
+            ->add('email', EmailType::class)
         ;
     }
 

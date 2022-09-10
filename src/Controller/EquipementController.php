@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use DateTime;
+use DateTimeImmutable;
 use App\Entity\Equipement;
 use App\Form\EquipementType;
 use App\Repository\EquipementRepository;
@@ -29,13 +29,13 @@ class EquipementController extends AbstractController
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $equipement = new Equipement();
-        $equipement->setUsedAt(new DateTime());
+        $equipement->setUsedAt(new DateTimeImmutable());
         $form = $this->createForm(EquipementType::class, $equipement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $equipement->setCreatedAt(new DateTime());
+            $equipement->setCreatedAt(new DateTimeImmutable());
 
             $manager->persist($equipement);
             $manager->flush();
@@ -80,7 +80,7 @@ class EquipementController extends AbstractController
                 "Les informations de l'equipement <strong>'" . $equipement->getName() . "'</strong> ont été modifiés !!!"
             );
 
-            return $this->redirectToRoute('administrateur_equipement_show', [
+            return $this->redirectToRoute('equipements_show', [
                 'id' => $equipement->getId()
             ]);
         }

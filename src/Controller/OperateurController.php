@@ -34,16 +34,16 @@ class OperateurController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $user
-                ->setHash($encoder->hashPassword($operateur, "password"))
+            $operateur
+                ->setPassword($encoder->hashPassword($operateur, "password"))
                 ->setPicture('avatar.png');
                 
-            $manager->persist($user);
+            $manager->persist($operateur);
             $manager->flush();
 
             $this->addFlash(
                 'success',
-                "Le nouveau operateur <strong>'" . $user->getFirstname() . ", " . $user->getLastname() . "'</strong> est ajouté !!!"
+                "Le nouveau operateur <strong>'" . $operateur->getFirstname() . ", " . $operateur->getLastname() . "'</strong> est ajouté !!!"
             );
 
             return $this->redirectToRoute('operateurs_show', [

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Intervention;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InterventionType extends AbstractType
@@ -13,14 +14,23 @@ class InterventionType extends AbstractType
     {
         $builder
             ->add('type')
-            ->add('createdAt')
+            ->add('equipement')
             ->add('plannedAt')
             ->add('startedAt')
             ->add('finishedAt')
             ->add('comment')
-            ->add('state')
-            ->add('equipement')
-            ->add('techniciens')
+            ->add('state',ChoiceType::class, [
+                'choices'  => [
+                    'En Attente'=>'En Attente',
+                    'En cours' => 'En cours',
+                    'Soldé' => 'Soldé'
+                ]
+            ])
+            ->add('techniciens', EntityType::class, [
+                'class'  => Tech::class,
+                'choice_label' => 'nameAndSpeciality',
+                'multiple' => true,'expanded' => true,
+            ])
         ;
     }
 

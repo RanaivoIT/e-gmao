@@ -1,0 +1,105 @@
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<div class="content">
+    <div class="card  my-4">
+        <div class="card-header">
+            <span class="card-title h5">Voir l' equipement</span>
+        </div>
+        <div class="card-body">
+
+            <div class="row d-flex align-items-stretch">
+                <div class="col-4 card shadow m-2">
+                    
+                    <div class="card-body text-center">
+                        <img src="{{ '/uploads/pictures/' ~ equipement.colection.picture }}" alt="picture" class="rounded img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{ equipement.name }}, {{ equipement.site.name }}</h5>
+                        <p class="text-muted mb-1">{{ equipement.service }}</p>
+                        <p class="text-muted mb-4">Mise en service le {{ equipement.usedAt | date("d/m/Y") }}</p>
+                        
+                    </div>
+                   
+                </div>
+                <div class="col card shadow m-2">
+                    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Equipement</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.name }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Site</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.site.name }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Service</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.service }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Ajouté le</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.createdAt | date("d/m/Y") }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Mise en service le</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ equipement.usedAt | date("d/m/Y") }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Etat</p>
+                            </div>
+                            <div class="col-sm-9">
+                                {% if equipement.state == "En service" %}
+                                    <p class=" mb-0 text-success">{{ equipement.state }}</p>
+                                {% endif %}
+                                {% if equipement.state == "En panne" %}
+                                    <p class=" mb-0 text-warning">{{ equipement.state }}</p>
+                                {% endif %}
+                                {% if equipement.state == "Hors service" %}
+                                    <p class="mb-0 text-danger">{{ equipement.state }}</p>
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-start">
+                            <a href="{{ path('equipements_edit', {'id': equipement.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                            <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
+                        </div>
+                        
+                    </div>
+
+
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

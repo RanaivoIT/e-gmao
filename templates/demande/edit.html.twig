@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<div class="content">
+    <div class="card my-4">
+        <div class="card-header">
+            <span class="card-title h5">Modifier la demande</span>
+        </div>
+        <div class="card-body">
+
+            {{ form_start(form, {'action': path('demandes_edit', {id:demande.id}), 'method': 'POST'}) }}
+
+            <div class="mb-3">
+                <label for="Site">Site</label>
+                <input type="text" class="form-control" value="{{ demande.equipement.site.name }}" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="Site">Service</label>
+                <input type="text" class="form-control" value="{{ demande.equipement.service }}" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="Site">Equipement</label>
+                <input type="text" class="form-control" value="{{ demande.equipement.name }}" disabled>
+            </div>
+
+            {{ form_widget(form) }}
+
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
