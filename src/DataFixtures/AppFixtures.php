@@ -24,7 +24,7 @@ class AppFixtures extends Fixture
                 ->setJob("Admin")
                 ->setAddress("NA")
                 ->setcontact("NA")
-                ->setEmail("NA")
+                ->setEmail("mail@mail.mail")
                 ->setPassword($this->encoder->hashPassword($superadmin, "password"))
                 ->setPicture("avatar.png");
         $manager->persist($superadmin);

@@ -20,6 +20,7 @@
                         <tr>
                             <th>ID</th>
                             <th>CreatedAt</th>
+                            <th>Type</th>
                             <th>Site</th>
                             <th>Service</th>
                             <th>Equipement</th>
@@ -35,7 +36,8 @@
                         {% for intervention in interventions %}
                             <tr>
                                 <td> <a href="{{ path('interventions_show', {'id': intervention.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ intervention.id }}</a> </td>
-                                <td>{{ intervention.createdAt | date("d/m/Y") }}</td>
+                                <td>{{ intervention.createdAt | date("d/m/Y") }}</td>                                
+                                <td>{{ intervention.type }}</td>
                                 <td>{{ intervention.equipement.site.name }}</td>
                                 <td>{{ intervention.equipement.service }}</td>
                                 <td>{{ intervention.equipement.name }}</td>
