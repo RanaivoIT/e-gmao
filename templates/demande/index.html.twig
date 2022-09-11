@@ -8,7 +8,7 @@
             <span class="card-title h5">Liste des Demandes</span>
         </div>
         <div class="card-body">
-            {% if is_granted('ROLE_ADMINOPERATEUR') %}
+            {% if is_granted('ROLE_OPERATEUR') %}
                 <div class="mb-3 d-flex justify-content-end">
                     <a href="{{ path('demandes_add') }}" class="btn btn-success">Ajouter</a>
                 </div>
