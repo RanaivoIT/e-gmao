@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use DateTime;
+use DateTimeImmutable;
 use App\Entity\Intervention;
 use App\Form\InterventionType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +10,7 @@ use App\Repository\InterventionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class InterventionController extends AbstractController
@@ -25,16 +26,21 @@ class InterventionController extends AbstractController
         ]);
     }
     #[Route('/interventions/add', name: 'interventions_add')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $intervention = new Intervention();
-        $intervention->setcreatedAt(new DateTime());
+        $intervention->setCreatedAt(new DateTimeImmutable());
+        $intervention->setPlannedAt(new DateTimeImmutable());
+        $intervention->setStartedAt(new DateTimeImmutable());
+        $intervention->setFinishedAt(new DateTimeImmutable());
+
         $form = $this->createForm(InterventionType::class, $intervention);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $intervention->setCreatedAt(new DateTime());
+            $intervention->setCreatedAt(new DateTimeImmutable());
 
             $manager->persist($intervention);
             $manager->flush();
@@ -64,6 +70,8 @@ class InterventionController extends AbstractController
         ]);
     }
     #[Route('/interventions/{id}/edit', name: 'interventions_edit')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
+    #[IsGranted('ROLE_TECHNICIEN')]
     public function edit(Intervention $intervention, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(InterventionType::class, $intervention);
@@ -79,7 +87,7 @@ class InterventionController extends AbstractController
                 "Les informations d' intervention <strong>'" . $intervention->getEquipement()->getName() . "'</strong> ont été modifiés !!!"
             );
 
-            return $this->redirectToRoute('intervention_show', [
+            return $this->redirectToRoute('interventions_show', [
                 'id' => $intervention->getId()   
             ]);
         }

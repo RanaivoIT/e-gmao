@@ -209,7 +209,7 @@ class Technicien implements UserInterface,  PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        $roles = ['ROLE_TECHNICIEN'];
+        $roles = ['ROLE_USER', 'ROLE_TECHNICIEN'];
         return array_unique($roles);
     }
 
@@ -233,5 +233,8 @@ class Technicien implements UserInterface,  PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+    public function getNameAndSpec(): ?string{
+        return $this->getLastname() . ", " . $this->getFirstname() . " / " . $this->getJob();
     }
 }

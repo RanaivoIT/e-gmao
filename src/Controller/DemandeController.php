@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use DateTime;
+use DateTimeImmutable;
 use App\Entity\Demande;
 use App\Form\DemandeType;
 use App\Repository\DemandeRepository;
@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DemandeController extends AbstractController
@@ -24,6 +25,7 @@ class DemandeController extends AbstractController
         ]);
     }
     #[Route('/demandes/add/', name: 'demandes_add')]
+    #[IsGranted('ROLE_OPERATEUR')]
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $demande = new Demande();
@@ -33,7 +35,7 @@ class DemandeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $demande->setCreatedAt(new DateTime());
+            $demande->setCreatedAt(new DateTimeImmutable());
 
             $manager->persist($demande);
             $manager->flush();
@@ -63,6 +65,7 @@ class DemandeController extends AbstractController
         ]);
     }
     #[Route('/demandes/{id}/edit', name: 'demandes_edit')]
+    #[IsGranted('ROLE_OPERATEUR')]
     public function edit(Demande $demande, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(DemandeType::class, $demande);
@@ -83,7 +86,7 @@ class DemandeController extends AbstractController
             ]);
         }
 
-        return $this->render('demande/add.html.twig', [
+        return $this->render('demande/edit.html.twig', [
             'title' => 'Demandes - Edit',
             'demande' => $demande,
             'form' => $form->createView()

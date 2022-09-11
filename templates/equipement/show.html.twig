@@ -17,7 +17,6 @@
                         <h5 class="my-3">{{ equipement.name }}, {{ equipement.site.name }}</h5>
                         <p class="text-muted mb-1">{{ equipement.service }}</p>
                         <p class="text-muted mb-4">Mise en service le {{ equipement.usedAt | date("d/m/Y") }}</p>
-                        
                     </div>
                    
                 </div>
@@ -88,8 +87,10 @@
                         </div>
                         <hr>
                         <div class="d-flex justify-content-start">
-                            <a href="{{ path('equipements_edit', {'id': equipement.id}) }}" type="button" class="btn btn-success">Modifier</a>
-                            <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
+                            {% if is_granted('ROLE_ADMINISTRATEUR') %}
+                                <a href="{{ path('equipements_edit', {'id': equipement.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                            {% endif %}
+                            <a class="btn btn-secondary" href="{{ path('equipements') }}">Liste</a>
                         </div>
                         
                     </div>

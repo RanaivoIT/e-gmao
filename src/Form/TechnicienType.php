@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class TechnicienType extends AbstractType
 {
@@ -20,7 +21,12 @@ class TechnicienType extends AbstractType
             ->add('email', EmailType::class)
             ->add('address')
             ->add('contact')
-            ->add('state')
+            ->add('state',ChoiceType::class, [
+                'choices'  => [
+                    'Disponible'=>'Disponible',
+                    'Indisponible'=>'Indisponible'
+                ]
+            ])
         ;
     }
 

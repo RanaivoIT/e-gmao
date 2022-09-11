@@ -8,11 +8,11 @@
             <span class="card-title h5">Liste des Demandes</span>
         </div>
         <div class="card-body">
-
+            {% if is_granted('ROLE_ADMINOPERATEUR') %}
                 <div class="mb-3 d-flex justify-content-end">
                     <a href="{{ path('demandes_add') }}" class="btn btn-success">Ajouter</a>
                 </div>
-
+            {% endif %}   
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>

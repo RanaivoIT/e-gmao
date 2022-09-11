@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class EquipementType extends AbstractType
 {
@@ -27,10 +28,9 @@ class EquipementType extends AbstractType
             ])
             ->add('name')
             ->add('service')
-            ->add('usedAt', DateType::class, [
-                'widget' => 'choice',
-                'input'  => 'datetime_immutable',
-                'format' => 'dd MMM yyyy'
+            ->add('usedAt', DateTimeType::class, [
+                'widget' => 'single_text',
+                'input'  => 'datetime_immutable'
             ])
             ->add('state',ChoiceType::class, [
                 'choices'  => [

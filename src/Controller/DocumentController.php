@@ -7,6 +7,7 @@ use App\Form\DocumentType;
 use App\Repository\DocumentRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DocumentController extends AbstractController
@@ -21,6 +22,7 @@ class DocumentController extends AbstractController
         ]);
     }
     #[Route('/documents/add', name: 'documents_add')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $document = new Document();
@@ -58,6 +60,7 @@ class DocumentController extends AbstractController
         ]);
     }
     #[Route('/documents/{id}/edit', name: 'documents_edit')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function edit(Document $document, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(DocumentType::class, $document);

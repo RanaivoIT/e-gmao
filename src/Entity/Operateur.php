@@ -160,7 +160,7 @@ class Operateur implements UserInterface,  PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        $roles = ['ROLE_OPERATEUR'];
+        $roles = ['ROLE_USER', 'ROLE_OPERATEUR'];
         return array_unique($roles);
     }
 

@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Form\PictureType;
 use App\Entity\Technicien;
+use App\Form\PasswordType;
 use App\Form\TechnicienType;
 use App\Repository\TechnicienRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -26,6 +29,7 @@ class TechnicienController extends AbstractController
     }
 
     #[Route('/techniciens/add', name: 'techniciens_add')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function add(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
         $tech = new Technicien();
@@ -66,6 +70,7 @@ class TechnicienController extends AbstractController
         ]);
     }
     #[Route('/techniciens/{id}/edit', name: 'techniciens_edit')]
+    #[Security("is_granted('ROLE_TECHNICIEN') and user===tech")]
     public function edit(Technicien $tech, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(TechnicienType::class, $tech);
@@ -94,6 +99,7 @@ class TechnicienController extends AbstractController
     }
 
     #[Route('/techniciens/{id}/picture', name: 'techniciens_picture')]
+    #[Security("is_granted('ROLE_TECHNICIEN') and user===tech")]
     public function picture(Technicien $tech, Request $request, EntityManagerInterface $manager): Response
     {
         
@@ -140,6 +146,7 @@ class TechnicienController extends AbstractController
     }
 
     #[Route('/techniciens/{id}/password', name: 'techniciens_password')]
+    #[Security("is_granted('ROLE_TECHNICIEN') and user===tech")]
     public function password(Technicien $technicien, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
         

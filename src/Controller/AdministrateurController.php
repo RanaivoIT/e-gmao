@@ -3,19 +3,23 @@
 namespace App\Controller;
 
 use App\Form\PictureType;
+use App\Form\PasswordType;
 use App\Entity\Administrateur;
 use App\Form\AdministrateurType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AdministrateurRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AdministrateurController extends AbstractController
 {
     #[Route('/administrateurs', name: 'administrateurs')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function index(AdministrateurRepository $repo): Response
     {
 
@@ -27,6 +31,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
     #[Route('/administrateurs/add', name: 'administrateurs_add')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function add(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
         $admin = new Administrateur();
@@ -59,6 +64,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
     #[Route('/administrateurs/{id}', name: 'administrateurs_show')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function show(Administrateur $admin): Response
     {
         $pictures_url = $this->getParameter('pictures_url');
@@ -69,6 +75,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
     #[Route('/administrateurs/{id}/edit', name: 'administrateurs_edit')]
+    #[Security("is_granted('ROLE_ADMINISTRATEUR') and user===admin")]
     public function edit(Administrateur $admin, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(AdministrateurType::class, $admin);
@@ -96,6 +103,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
     #[Route('/administrateurs/{id}/picture', name: 'administrateurs_picture')]
+    #[Security("is_granted('ROLE_ADMINISTRATEUR') and user===admin")]
     public function picture(Administrateur $admin, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(PictureType::class, null);
@@ -115,7 +123,7 @@ class AdministrateurController extends AbstractController
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
-                $admin->setAvatar($filename);
+                $admin->setPicture($filename);
             }
 
             $manager->persist($admin);
@@ -126,7 +134,7 @@ class AdministrateurController extends AbstractController
                 "L'avatar du administrateur <strong>'" . $admin->getFirstname() . ", " . $admin->getLastname() . "'</strong> a été modifiée !!!"
             );
 
-            return $this->redirectToRoute('administrateur_show', [
+            return $this->redirectToRoute('administrateurs_show', [
                 'id' => $admin->getId()
             ]);
         }
@@ -138,6 +146,7 @@ class AdministrateurController extends AbstractController
         ]);
     }
     #[Route('/administrateurs/{id}/password', name: 'administrateurs_password')]
+    #[Security("is_granted('ROLE_ADMINISTRATEUR') and user===admin")]
     public function password(Administrateur $admin, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
         $form = $this->createForm(PasswordType::class, $admin);

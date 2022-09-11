@@ -17,7 +17,9 @@
                         <p class="text-muted mb-1">{{ operateur.job }}</p>
                         <p class="text-muted mb-4">{{ operateur.email }}</p>
                         <div class="d-flex justify-content-center mb-2">
-                            <a href=" {{ path('operateurs_picture', {'id': operateur.id}) }} " type="button" class="btn btn-warning">Changer l'avatar</a>
+                            {% if is_granted('ROLE_OPERATEUR') && app.user.id == operateur.id %}
+                                <a href=" {{ path('operateurs_picture', {'id': operateur.id}) }} " type="button" class="btn btn-warning">Changer l'avatar</a>
+                            {% endif %}
                         </div>
                     </div>
                    
@@ -82,8 +84,10 @@
                         <hr>
 
                         <div class="d-flex justify-content-start">
-                            <a href="{{ path('operateurs_edit', {'id': operateur.id}) }}" type="button" class="btn btn-success">Modifier</a>
-                            <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
+                            {% if is_granted('ROLE_OPERATEUR') && app.user.id == operateur.id %}
+                                <a href="{{ path('operateurs_edit', {'id': operateur.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                            {% endif %}
+                            <a class="btn btn-secondary" href="{{ path('operateurs') }}">Liste</a>
                         </div>
                         
                     </div>

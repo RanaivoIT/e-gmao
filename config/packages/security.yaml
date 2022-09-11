@@ -5,55 +5,36 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
-        in_database_admin:
+        administrateurs:
             entity:
                 class: App\Entity\Administrateur
                 property: email
-        in_database_operator:
+        operateurs:
             entity:
                 class: App\Entity\Operateur
                 property: email
-        in_database_tech:
+        techniciens:
             entity:
                 class: App\Entity\Technicien
                 property: email
+        users:
+            chain:
+                providers: ['administrateurs', 'operateurs', 'techniciens']
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        administrateur:
-            pattern: ^/administrateur
-            provider: in_database_admin
+        users:
+            pattern: ^/
+            provider: users
             form_login:
-                login_path: administrateur_login 
-                check_path: administrateur_login                
+                login_path: login
+                check_path: login
                 always_use_default_target_path: true
-                default_target_path: administrateur_home
+                default_target_path: dashboard
             logout:
-                path: administrateur_logout
-                target: administrateur_login 
-        technicien:
-            pattern: ^/technicien
-            provider: in_database_tech
-            form_login:
-                login_path: technicien_login 
-                check_path: technicien_login
-                always_use_default_target_path: true
-                default_target_path: technicien_home
-            logout:
-                path: technicien_logout
-                target: ttechnicien_login
-        operateur:
-            pattern: ^/operateur
-            provider: in_database_operator
-            form_login:
-                login_path: operateur_login 
-                check_path: operateur_login
-                always_use_default_target_path: true
-                default_target_path: operateur_home
-            logout:
-                path: operateur_logout
-                target: operateur_login
+                path: logout
+                target: login
         main:
             lazy: true
             provider: users_in_memory
@@ -67,7 +48,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/, roles: [ROLE_USER] }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

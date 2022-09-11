@@ -1,5 +1,5 @@
 <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark bg-success" id="sidenavAccordion">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Accueil</div>
@@ -33,11 +33,13 @@
                 </a>
                 
                 <div class="sb-sidenav-menu-heading">Rôles</div>
-
-                <a class="nav-link" href="{{ path('administrateurs') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
-                    Administrateurs
-                </a>
+                {% if is_granted('ROLE_ADMINISTRATEUR') %}
+                    <a class="nav-link" href="{{ path('administrateurs') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
+                        Administrateurs
+                    </a>
+                {% endif %}
+                
 
                 <a class="nav-link" href="{{ path('techniciens') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>

@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EquipementController extends AbstractController
@@ -26,6 +27,7 @@ class EquipementController extends AbstractController
         ]);
     }
     #[Route('/equipements/add', name: 'equipements_add')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $equipement = new Equipement();
@@ -65,6 +67,7 @@ class EquipementController extends AbstractController
         ]);
     }
     #[Route('/equipements/{id}/edit', name: 'equipements_edit')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function edit(Equipement $equipement, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(EquipementType::class, $equipement);

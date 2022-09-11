@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ColectionController extends AbstractController
@@ -24,6 +25,7 @@ class ColectionController extends AbstractController
         ]);
     }
     #[Route('/colections/add', name: 'colections_add')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $colection = new Colection();
@@ -92,6 +94,7 @@ class ColectionController extends AbstractController
         ]);
     }
     #[Route('/colections/{id}/picture', name: 'colections_picture')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function picture(Colection $colection, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(PictureType::class, null);

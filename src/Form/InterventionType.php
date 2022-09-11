@@ -2,22 +2,44 @@
 
 namespace App\Form;
 
+use App\Entity\Equipement;
+use App\Entity\Technicien;
 use App\Entity\Intervention;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class InterventionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('type')
-            ->add('equipement')
-            ->add('plannedAt')
-            ->add('startedAt')
-            ->add('finishedAt')
+            ->add('type',ChoiceType::class, [
+                'choices'  => [
+                    'CURRATIF'=>'CURRATIF',
+                    'PREVENTIF' => 'PREVENTIF'
+                ]
+            ])
+            ->add('equipement', EntityType::class, [
+                'class'  => Equipement::class,
+                'choice_label' => 'name'
+            ])
+            ->add('plannedAt', DateTimeType::class, [
+                'widget' => 'single_text',
+                'input'  => 'datetime_immutable'
+            ])
+            ->add('startedAt', DateTimeType::class, [
+                'widget' => 'single_text',
+                'input'  => 'datetime_immutable'
+            ])
+            ->add('finishedAt', DateTimeType::class, [
+                'widget' => 'single_text',
+                'input'  => 'datetime_immutable'
+            ])
             ->add('comment')
             ->add('state',ChoiceType::class, [
                 'choices'  => [
@@ -27,8 +49,8 @@ class InterventionType extends AbstractType
                 ]
             ])
             ->add('techniciens', EntityType::class, [
-                'class'  => Tech::class,
-                'choice_label' => 'nameAndSpeciality',
+                'class'  => Technicien::class,
+                'choice_label' => 'nameAndSpec',
                 'multiple' => true,'expanded' => true,
             ])
         ;

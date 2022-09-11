@@ -13,11 +13,10 @@
                 <div class="col-4 card shadow m-2">
                     
                     <div class="card-body text-center">
-                        <img src="{{ '/uploads/pictures/' ~ demande.equipement.picture }}" alt="picture" class="rounded img-fluid" style="width: 200px;">
+                        <img src="{{ '/uploads/pictures/' ~ demande.equipement.colection.picture }}" alt="picture" class="rounded img-fluid" style="width: 200px;">
                         <h5 class="my-3">{{ demande.equipement.name }}</h5>
-                        <p class="text-muted mb-1">{{ demande.equipement.maker }}</p>
-                        <p class="text-muted mb-1">{{ demande.equipement.origin }}</p>
-                        
+                        <p class="text-muted mb-1">{{ demande.equipement.colection.maker }}</p>
+                        <p class="text-muted mb-1">{{ demande.equipement.colection.origin }}</p> 
                     </div>
                    
                 </div>
@@ -38,7 +37,7 @@
                                 <p class="mb-0">Site </p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ demande.site.name }}</p>
+                                <p class="text-muted mb-0">{{ demande.equipement.site.name }}</p>
                             </div>
                         </div>
                         <hr>
@@ -47,7 +46,7 @@
                                 <p class="mb-0">Service</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ demande.service }}</p>
+                                <p class="text-muted mb-0">{{ demande.equipement.service }}</p>
                             </div>
                         </div>
                         <hr>                  
@@ -81,7 +80,9 @@
                         <hr>
 
                         <div class="d-flex justify-content-start">
-                            <a href="" type="button" class="btn btn-primary  ms-1">Imprimer</a>
+                            {% if is_granted('ROLE_ADMINISTRATEUR') || is_granted('ROLE_OPERATEUR') %}
+                                <a href="{{ path('demandes_edit', {'id':demande.id}) }}" type="button" class="btn btn-primary  ms-1">Modifier</a>
+                            {% endif %}
                         </div>
                         
                     </div>   

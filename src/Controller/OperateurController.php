@@ -11,6 +11,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -26,6 +28,7 @@ class OperateurController extends AbstractController
         ]);
     }
     #[Route('/operateurs/add', name: 'operateurs_add')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function add(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
         $operateur = new Operateur();
@@ -66,6 +69,7 @@ class OperateurController extends AbstractController
         ]);
     }
     #[Route('/operateurs/{id}/edit', name: 'operateurs_edit')]
+    #[Security("is_granted('ROLE_OPERATEUR') and user===operateur")]
     public function edit(Operateur $operateur, Request $request, EntityManagerInterface $manager): Response
     {
         
@@ -95,6 +99,7 @@ class OperateurController extends AbstractController
     }
 
     #[Route('/operateurs/{id}/picture', name: 'operateurs_picture')]
+    #[Security("is_granted('ROLE_OPERATEUR') and user===operateur")]
     public function picture(Operateur $operateur, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(PictureType::class, null);
@@ -140,6 +145,7 @@ class OperateurController extends AbstractController
     }
 
     #[Route('/operateurs/{id}/password', name: 'operateurs_password')]
+    #[Security("is_granted('ROLE_OPERATEUR') and user===operateur")]
     public function password(Operateur $operateur, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
         $form = $this->createForm(PasswordType::class, $admin);

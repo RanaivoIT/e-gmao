@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SiteController extends AbstractController
@@ -26,6 +27,7 @@ class SiteController extends AbstractController
         ]);
     }
     #[Route('/sites/add', name: 'sites_add')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function add(Request $request, EntityManagerInterface $manager): Response
     {
         $site = new Site();
@@ -66,6 +68,7 @@ class SiteController extends AbstractController
         ]);
     }
     #[Route('/sites/{id}/edit', name: 'sites_edit')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function edit(Site $site, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(SiteType::class, $site);
@@ -93,7 +96,8 @@ class SiteController extends AbstractController
         ]);
     }
     #[Route('/sites/{id}/picture', name: 'sites_picture')]
-    public function change_picture(Site $site, Request $request, EntityManagerInterface $manager): Response
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
+    public function picture(Site $site, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(PictureType::class, null);
         $form->handleRequest($request);
@@ -123,7 +127,7 @@ class SiteController extends AbstractController
                 "L'image du site <strong>'" . $site->getName() . "'</strong> a été modifiée !!!"
             );
 
-            return $this->redirectToRoute('administrateur_site_show', [
+            return $this->redirectToRoute('sites_show', [
                 'id' => $site->getId()
             ]);
         }
