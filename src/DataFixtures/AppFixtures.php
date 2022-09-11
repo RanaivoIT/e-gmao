@@ -2,8 +2,9 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Entity\Administrateur;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class AppFixtures extends Fixture
 {
@@ -11,12 +12,12 @@ class AppFixtures extends Fixture
     {
         $superadmin = new Administrateur();
 
-        $superadmin->setFirstname($faker->firstname())
-                ->setLastname($faker->lastname())
-                ->setJob($faker->jobTitle())
-                ->setAddress($faker->address())
-                ->setcontact($faker->phoneNumber())
-                ->setEmail($faker->email())
+        $superadmin->setFirstname("Rakoto")
+                ->setLastname("Be")
+                ->setJob("Admin")
+                ->setAddress("NA")
+                ->setcontact("NA")
+                ->setEmail("NA")
                 ->setPassword($this->encoder->hashPassword($superadmin, "password"))
                 ->setAvatar("avatar.png");
         $manager->persist($superadmin);
