@@ -8,7 +8,7 @@
             <span class="card-title h5">Liste des techniciens</span>
         </div>
         <div class="card-body">
-            {% if is_granted('ROLE_ADMINISTRATEUR',object,field) %}
+            {% if is_granted('ROLE_ADMINISTRATEUR') %}
                 <div class="mb-3 d-flex justify-content-end">
                     <a href="{{ path('techniciens_add') }}" class="btn btn-success">Ajouter</a>
                 </div>
@@ -26,6 +26,7 @@
                             <th>Email</th>
                             <th>Adresse</th>
                             <th>contact</th>
+                            <th>Etat</th>
                         </tr>
                     </thead>
                     
@@ -40,6 +41,8 @@
                                 <td>{{ technicien.email }}</td>
                                 <td>{{ technicien.address }}</td>
                                 <td>{{ technicien.contact }}</td>
+                                <td>{{ technicien.state }}</td>
+
                             </tr>
                         {% endfor %}
                     </tbody>

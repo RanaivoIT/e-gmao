@@ -8,10 +8,13 @@
                     Dashboard
                 </a>
                 <div class="sb-sidenav-menu-heading">Planning</div>
-                <a class="nav-link" href="{{ path('demandes') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-wrench"></i></div>
-                    Demandes
-                </a>
+                {% if is_granted('ROLE_ADMINISTRATEUR') or is_granted('ROLE_ADMINISTRATEUR') %}
+                    <a class="nav-link" href="{{ path('demandes') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-wrench"></i></div>
+                        Demandes
+                    </a>
+                {% endif %}
+                
                 <a class="nav-link" href="{{ path('interventions') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-calendar"></i></div>
                     Interventions
