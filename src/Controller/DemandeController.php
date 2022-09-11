@@ -10,20 +10,24 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DemandeController extends AbstractController
 {
     #[Route('/demandes', name: 'demandes')]
+    #[Security("is_granted('ROLE_ADMINISTRATEUR') or is_granted('ROLE_OPERATEUR')")]
     public function index(DemandeRepository $repo): Response
     {
         $demandes = $repo->findAll();
+
         return $this->render('demande/index.html.twig', [
             'title' => 'Demandes',
             'demandes' => $demandes
         ]);
     }
+
     #[Route('/demandes/add/', name: 'demandes_add')]
     #[IsGranted('ROLE_OPERATEUR')]
     public function add(Request $request, EntityManagerInterface $manager): Response
