@@ -38,7 +38,10 @@ class OperateurRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function findAll()
+    {
+        return $this->findBy([], ['id' => 'DESC']);
+    }
 //    /**
 //     * @return Operateur[] Returns an array of Operateur objects
 //     */
@@ -47,7 +50,7 @@ class OperateurRepository extends ServiceEntityRepository
 //        return $this->createQueryBuilder('o')
 //            ->andWhere('o.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('o.id', 'ASC')
+//            ->orderBy('o.id', 'DESC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()

@@ -38,6 +38,10 @@ class SiteRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAll()
+    {
+        return $this->findBy([], ['id' => 'DESC']);
+    }
 
 //    /**
 //     * @return Site[] Returns an array of Site objects
@@ -47,7 +51,7 @@ class SiteRepository extends ServiceEntityRepository
 //        return $this->createQueryBuilder('s')
 //            ->andWhere('s.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
+//            ->orderBy('s.id', 'DESC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()

@@ -60,7 +60,10 @@ class InterventionRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
     }
-
+    public function findAll()
+    {
+        return $this->findBy([], ['id' => 'DESC']);
+    }
 //    /**
 //     * @return Intervention[] Returns an array of Intervention objects
 //     */
@@ -69,7 +72,7 @@ class InterventionRepository extends ServiceEntityRepository
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
+//            ->orderBy('i.id', 'DESC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()

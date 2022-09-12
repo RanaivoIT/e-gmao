@@ -48,6 +48,10 @@ class DemandeRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
     }
+    public function findAll()
+    {
+        return $this->findBy([], ['id' => 'DESC']);
+    }
 
 //    /**
 //     * @return Demande[] Returns an array of Demande objects
@@ -57,7 +61,7 @@ class DemandeRepository extends ServiceEntityRepository
 //        return $this->createQueryBuilder('d')
 //            ->andWhere('d.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
+//            ->orderBy('d.id', 'DESC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()

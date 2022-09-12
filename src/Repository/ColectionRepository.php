@@ -38,6 +38,10 @@ class ColectionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAll()
+    {
+        return $this->findBy([], ['id' => 'DESC']);
+    }
 
 //    /**
 //     * @return Colection[] Returns an array of Colection objects
@@ -47,7 +51,7 @@ class ColectionRepository extends ServiceEntityRepository
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
+//            ->orderBy('c.id', 'DESC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()

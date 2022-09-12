@@ -39,6 +39,11 @@ class TechnicienRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAll()
+    {
+        return $this->findBy([], ['id' => 'DESC']);
+    }
+
 //    /**
 //     * @return Technicien[] Returns an array of Technicien objects
 //     */
@@ -47,7 +52,7 @@ class TechnicienRepository extends ServiceEntityRepository
 //        return $this->createQueryBuilder('t')
 //            ->andWhere('t.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
+//            ->orderBy('t.id', 'DESC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()

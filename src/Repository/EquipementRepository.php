@@ -38,6 +38,10 @@ class EquipementRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAll()
+    {
+        return $this->findBy([], ['id' => 'DESC']);
+    }
 
 //    /**
 //     * @return Equipement[] Returns an array of Equipement objects
@@ -47,7 +51,7 @@ class EquipementRepository extends ServiceEntityRepository
 //        return $this->createQueryBuilder('e')
 //            ->andWhere('e.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
+//            ->orderBy('e.id', 'DESC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()

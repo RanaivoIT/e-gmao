@@ -38,6 +38,10 @@ class DocumentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAll()
+    {
+        return $this->findBy([], ['id' => 'DESC']);
+    }
 
 //    /**
 //     * @return Document[] Returns an array of Document objects
@@ -47,7 +51,7 @@ class DocumentRepository extends ServiceEntityRepository
 //        return $this->createQueryBuilder('d')
 //            ->andWhere('d.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
+//            ->orderBy('d.id', 'DESC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
