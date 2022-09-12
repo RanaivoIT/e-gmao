@@ -36,7 +36,15 @@
                                 <td>{{ demande.equipement.service }}</td>
                                 <td>{{ demande.equipement.name }}</td>
                                 <td>{{ demande.description }}</td>
-                                <td>{{ demande.state }}</td>
+                                {% if demande.state == "Soldé" %}
+                                    <td class=" mb-0 text-success">{{ demande.state }}</td>
+                                {% endif %}
+                                {% if demande.state == "En cours" %}
+                                    <td class=" mb-0 text-warning">{{ demande.state }}</td>
+                                {% endif %}
+                                {% if demande.state == "En attente" %}
+                                    <td class="mb-0 text-danger">{{ demande.state }}</td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                     </tbody>

@@ -113,7 +113,7 @@
                             </div>
                             <div class="col-sm-9">
                                 {% for tech in intervention.techniciens %}
-                                    <p class="text-muted mb-0">{{ tech.firstname }}</p>
+                                    <p class="text-muted mb-0">{{ tech.lastname ~ ', ' ~ tech.firstname ~ ' / ' ~ tech.job }}</p>
                                 {% endfor %}
                                 
                             </div>

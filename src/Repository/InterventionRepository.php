@@ -39,6 +39,28 @@ class InterventionRepository extends ServiceEntityRepository
         }
     }
 
+    public function findBySite($site)
+    {
+        return $this->createQueryBuilder('i')
+                    ->orderBy('i.id', 'DESC')
+                    ->join('i.equipement', 'e')
+                    ->where('e.site = :site')
+                    ->setParameter('site', $site)
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function findByTech($tech)
+    {
+        return $this->createQueryBuilder('i')
+                    ->orderBy('i.id', 'DESC')
+                    ->join('i.techniciens', 't')
+                    ->where('t = :tech')
+                    ->setParameter('tech', $tech)
+                    ->getQuery()
+                    ->getResult();
+    }
+
 //    /**
 //     * @return Intervention[] Returns an array of Intervention objects
 //     */

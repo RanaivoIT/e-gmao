@@ -41,7 +41,12 @@
                                 <td>{{ technicien.email }}</td>
                                 <td>{{ technicien.address }}</td>
                                 <td>{{ technicien.contact }}</td>
-                                <td>{{ technicien.state }}</td>
+                                {% if technicien.state == "Disponible" %}
+                                    <td class=" mb-0 text-success">{{ technicien.state }}</td>
+                                {% endif %}
+                                {% if technicien.state == "Indisponible" %}
+                                    <td class="mb-0 text-danger">{{ technicien.state }}</td>
+                                {% endif %}
 
                             </tr>
                         {% endfor %}

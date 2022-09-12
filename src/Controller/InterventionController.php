@@ -10,6 +10,7 @@ use App\Repository\InterventionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -19,7 +20,12 @@ class InterventionController extends AbstractController
     public function index(InterventionRepository $repo): Response
     {
         $interventions = $repo->findall();
-
+        if ($this->isGranted('ROLE_OPERATEUR')) {
+            $interventions = $repo->findBySite($this->getUser()->getSite());
+        }
+        if ($this->isGranted('ROLE_TECHNICIEN')) {
+            $interventions = $repo->findByTech($this->getUser());
+        }
         return $this->render('intervention/index.html.twig', [
             'title' => 'Interventions',
             'interventions' => $interventions
@@ -70,8 +76,7 @@ class InterventionController extends AbstractController
         ]);
     }
     #[Route('/interventions/{id}/edit', name: 'interventions_edit')]
-    #[IsGranted('ROLE_ADMINISTRATEUR')]
-    #[IsGranted('ROLE_TECHNICIEN')]
+    #[Security("is_granted('ROLE_TECHNICIEN') or is_granted('ROLE_ADMINISTRATEUR')")]
     public function edit(Intervention $intervention, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(InterventionType::class, $intervention);

@@ -38,6 +38,16 @@ class DemandeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findBySite($site)
+    {
+        return $this->createQueryBuilder('d')
+                    ->orderBy('d.id', 'DESC')
+                    ->join('d.equipement', 'e')
+                    ->where('e.site = :site')
+                    ->setParameter('site', $site)
+                    ->getQuery()
+                    ->getResult();
+    }
 
 //    /**
 //     * @return Demande[] Returns an array of Demande objects

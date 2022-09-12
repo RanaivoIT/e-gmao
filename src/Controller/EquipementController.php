@@ -16,11 +16,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class EquipementController extends AbstractController
 {
     #[Route('/equipements', name: 'equipements')]
-    public function index(EquipementRepository $equipementrepo): Response
+    public function index(EquipementRepository $repo): Response
     {
 
-        $equipements = $equipementrepo->findall();
-
+        $equipements = $repo->findall();
+        if ($this->isGranted('ROLE_OPERATEUR')) {
+            $equipements = $repo->findBySite($this->getUser()->getSite());
+        }
         return $this->render('equipement/index.html.twig', [
             'title' => 'Equipements',
             'equipements' => $equipements

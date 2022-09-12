@@ -21,7 +21,9 @@ class DemandeController extends AbstractController
     public function index(DemandeRepository $repo): Response
     {
         $demandes = $repo->findAll();
-
+        if ($this->isGranted('ROLE_OPERATEUR')) {
+            $demandes = $repo->findBySite($this->getUser()->getSite());
+        }
         return $this->render('demande/index.html.twig', [
             'title' => 'Demandes',
             'demandes' => $demandes
@@ -34,7 +36,7 @@ class DemandeController extends AbstractController
     {
         $demande = new Demande();
         
-        $form = $this->createForm(DemandeType::class, $demande);
+        $form = $this->createForm(DemandeType::class, $demande, ['site' => $this->getUser()->getSite()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -45,7 +45,15 @@
                                 <td>{{ intervention.startedAt | date("d/m/Y") }}</td>
                                 <td>{{ intervention.finishedAt | date("d/m/Y") }}</td>
                                 <td>{{ intervention.comment }}</td>
-                                <td>{{ intervention.state }}</td>
+                                {% if intervention.state == "Soldé" %}
+                                    <td class=" mb-0 text-success">{{ intervention.state }}</td>
+                                {% endif %}
+                                {% if intervention.state == "En cours" %}
+                                    <td class=" mb-0 text-warning">{{ intervention.state }}</td>
+                                {% endif %}
+                                {% if intervention.state == "En attente" %}
+                                    <td class="mb-0 text-danger">{{ intervention.state }}</td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                     </tbody>
