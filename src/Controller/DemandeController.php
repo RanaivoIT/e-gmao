@@ -63,6 +63,7 @@ class DemandeController extends AbstractController
         ]);
     }
     #[Route('/demandes/{id}', name: 'demandes_show')]
+    #[Security("(is_granted('ROLE_OPERATEUR') and user.getSite() == demande.getEquipement().getSite()) or is_granted('ROLE_ADMINISTRATEUR')")]
     public function show(Demande $demande): Response
     {
         return $this->render('demande/show.html.twig', [
@@ -71,10 +72,10 @@ class DemandeController extends AbstractController
         ]);
     }
     #[Route('/demandes/{id}/edit', name: 'demandes_edit')]
-    #[IsGranted('ROLE_OPERATEUR')]
+    #[Security("(is_granted('ROLE_OPERATEUR') and user.getSite() == demande.getEquipement().getSite()) or is_granted('ROLE_ADMINISTRATEUR')")]
     public function edit(Demande $demande, Request $request, EntityManagerInterface $manager): Response
     {
-        $form = $this->createForm(DemandeType::class, $demande);
+        $form = $this->createForm(DemandeType::class, $demande, ['site' => $demande->getEquipement()->getSite()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

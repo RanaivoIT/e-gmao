@@ -68,6 +68,7 @@ class InterventionController extends AbstractController
         ]);
     }
     #[Route('/interventions/{id}', name: 'interventions_show')]
+    #[Security("(is_granted('ROLE_TECHNICIEN') and intervention.inArrayTech(user)) or (is_granted('ROLE_OPERATEUR') and user.getSite() == intervention.getEquipement().getSite()) or is_granted('ROLE_ADMINISTRATEUR')")]
     public function show(Intervention $intervention): Response
     {
         return $this->render('intervention/show.html.twig', [
@@ -76,7 +77,7 @@ class InterventionController extends AbstractController
         ]);
     }
     #[Route('/interventions/{id}/edit', name: 'interventions_edit')]
-    #[Security("is_granted('ROLE_TECHNICIEN') or is_granted('ROLE_ADMINISTRATEUR')")]
+    #[Security("(is_granted('ROLE_TECHNICIEN') and intervention.inArrayTech(user)) or is_granted('ROLE_ADMINISTRATEUR')")]
     public function edit(Intervention $intervention, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(InterventionType::class, $intervention);

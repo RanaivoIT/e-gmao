@@ -172,4 +172,9 @@ class Intervention
 
         return $this;
     }
+
+    public function inArrayTech(Technicien $tech)
+    {
+        return in_array($tech, $this->getTechniciens()->toArray());
+    }
 }
