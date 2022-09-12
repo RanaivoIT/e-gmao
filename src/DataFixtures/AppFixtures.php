@@ -106,7 +106,7 @@ class AppFixtures extends Fixture
                     ->setState($states[mt_rand(0, 2)]);
 
 
-                for ($k=0; $k < mt_rand(5, 20) ; $k++) { 
+                for ($k=0; $k < mt_rand(5, 10) ; $k++) { 
                     $states = ['En attente', 'En cours', 'Soldé'];
                     $demande = new Demande();
                     $demande
@@ -117,7 +117,7 @@ class AppFixtures extends Fixture
 
                     $manager->persist($demande);
                 }
-                for ($k=0; $k < mt_rand(15, 30) ; $k++) { 
+                for ($k=0; $k < mt_rand(5, 10) ; $k++) { 
                     $types = ['CURRATIF', 'PREVENTIF'];
                     $states = ['En attente', 'En cours', 'Soldé'];
                     $intervention = new Intervention();
