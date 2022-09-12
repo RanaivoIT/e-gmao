@@ -127,7 +127,7 @@ class OperateurController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Votre picture <strong>'" . $operateur->getFirstname() . ", " . $operateur->getLastname() . "'</strong> a été modifiée !!!"
+                "Votre avatar a été modifiée !!!"
             );
 
             return $this->redirectToRoute('operateurs_show', [

@@ -42,6 +42,16 @@ class EquipementRepository extends ServiceEntityRepository
     {
         return $this->findBy([], ['id' => 'DESC']);
     }
+    public function findBySiteAndState($site, $state)
+    {
+        return $this->createQueryBuilder('e')
+                    ->orderBy('e.id', 'DESC')
+                    ->where('e.site = :site and e.state = :state')
+                    ->setParameter('site', $site)
+                    ->setParameter('state', $state)
+                    ->getQuery()
+                    ->getResult();
+    }
 
 //    /**
 //     * @return Equipement[] Returns an array of Equipement objects

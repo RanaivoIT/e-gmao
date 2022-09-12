@@ -60,6 +60,28 @@ class InterventionRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
     }
+    public function findByTechAndState($tech, $state)
+    {
+        return $this->createQueryBuilder('i')
+                    ->orderBy('i.id', 'DESC')
+                    ->join('i.techniciens', 't')
+                    ->where('t = :tech and i.state = :state')
+                    ->setParameter('tech', $tech)
+                    ->setParameter('state', $state)
+                    ->getQuery()
+                    ->getResult();
+    }
+    public function findBySiteAndState($site, $state)
+    {
+        return $this->createQueryBuilder('i')
+                    ->orderBy('i.id', 'DESC')
+                    ->join('i.equipement', 'e')
+                    ->where('e.site = :site and i.state = :state')
+                    ->setParameter('site', $site)
+                    ->setParameter('state', $state)
+                    ->getQuery()
+                    ->getResult();
+    }
     public function findAll()
     {
         return $this->findBy([], ['id' => 'DESC']);

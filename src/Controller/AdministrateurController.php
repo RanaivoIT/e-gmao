@@ -131,7 +131,7 @@ class AdministrateurController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "L'avatar du administrateur <strong>'" . $admin->getFirstname() . ", " . $admin->getLastname() . "'</strong> a été modifiée !!!"
+                "Votre avatar a été modifiée !!!"
             );
 
             return $this->redirectToRoute('administrateurs_show', [

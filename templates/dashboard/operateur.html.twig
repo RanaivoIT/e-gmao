@@ -1,0 +1,138 @@
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
+{% block body %}
+
+<h1 class="h3 my-2">Dashboard</h1>
+
+<div class="content">
+    <div class="row">
+        <div class="col">
+            <div class="card my-3">
+                <div class="card-header">
+                    <h4 class="card-title m-0">Demandes <span class="badge bg-secondary">{{ demandes | length }}</span></h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card bg-primary">
+                                <div class="card-header">
+                                    <h5 class="text-center m-0 text-light">En attente</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-light h1 text-center m-0">{{ demandes1 | length }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card bg-warning">
+                                <div class="card-header">
+                                    <h5 class="text-center m-0 text-light">En cours</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-light h1 text-center m-0">{{ demandes2 | length }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card bg-success">
+                                <div class="card-header">
+                                    <h5 class="text-center m-0 text-light">Soldé</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-light h1 text-center m-0">{{ demandes3 | length }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card my-3">
+                <div class="card-header">
+                    <h4 class="card-title m-0">Interventions <span class="badge bg-secondary">{{ interventions | length }}</span></h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card bg-primary">
+                                <div class="card-header">
+                                    <h5 class="text-center m-0 text-light">En attente</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-light h1 text-center m-0">{{ interventions1 | length }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card bg-warning">
+                                <div class="card-header">
+                                    <h5 class="text-center m-0 text-light">En cours</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-light h1 text-center m-0">{{ interventions2 | length }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card bg-success">
+                                <div class="card-header">
+                                    <h5 class="text-center m-0 text-light">Soldé</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-light h1 text-center m-0">{{ interventions3 | length }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card my-3">
+                <div class="card-header">
+                    <h4 class="card-title m-0">Equipements <span class="badge bg-secondary">{{ equipements | length }}</span></h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card bg-success">
+                                <div class="card-header">
+                                    <h5 class="text-center m-0 text-light">En service</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-light h1 text-center m-0">{{ equipements1 | length }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card bg-warning">
+                                <div class="card-header">
+                                    <h5 class="text-center m-0 text-light">En panne</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-light h1 text-center m-0">{{ equipements2 | length }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card bg-danger">
+                                <div class="card-header">
+                                    <h5 class="text-center m-0 text-light">Hors service</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-light h1 text-center m-0">{{ equipements3 | length }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+{% endblock %}

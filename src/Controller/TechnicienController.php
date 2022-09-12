@@ -128,7 +128,7 @@ class TechnicienController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "L'avatar du technicien <strong>'" . $tech->getFirstname() . ", " . $tech->getLastname() . "'</strong> a été modifiée !!!"
+                "Votre avatar a été modifiée !!!"
             );
 
             return $this->redirectToRoute('techniciens_show', [
