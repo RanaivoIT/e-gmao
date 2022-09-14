@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\PassType;
 use App\Entity\Operateur;
 use App\Form\PictureType;
-use App\Form\PasswordType;
 use App\Form\OperateurType;
 use App\Repository\OperateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -148,14 +148,14 @@ class OperateurController extends AbstractController
     #[Security("is_granted('ROLE_OPERATEUR') and user===operateur")]
     public function password(Operateur $operateur, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
-        $form = $this->createForm(PasswordType::class, $admin);
+        $form = $this->createForm(PassType::class, $admin);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            $password =  $encoder->hashPassword($operateur, $form->get('password'));
             
-            if ($password == $operateur->getPassword()) {
-                $newPassword =  $form->get('newPassword');
+            if ( password_verify($form->get('last_password')->getData(), $operateur->getPassword())) {
+
+                $admin->setPassword($encoder->hashPassword($operateur, $form->get('new_password')->getData()));
                 $manager->persist($operateur);
                 $manager->flush();
                 $this->addFlash(

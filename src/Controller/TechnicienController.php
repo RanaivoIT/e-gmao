@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\PassType;
 use App\Form\PictureType;
 use App\Entity\Technicien;
-use App\Form\PasswordType;
 use App\Form\TechnicienType;
 use App\Repository\TechnicienRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -150,14 +150,14 @@ class TechnicienController extends AbstractController
     public function password(Technicien $technicien, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
         
-        $form = $this->createForm(PasswordType::class, $admin);
+        $form = $this->createForm(PassType::class);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            $password =  $encoder->hashPassword($technicien, $form->get('password'));
             
-            if ($password == $technicien->getPassword()) {
-                $newPassword =  $form->get('newPassword');
+            if ( password_verify($form->get('last_password')->getData(), $technicien->getPassword())) {
+
+                $technicien->setPassword($encoder->hashPassword($technicien, $form->get('new_password')->getData()));
                 $manager->persist($technicien);
                 $manager->flush();
                 $this->addFlash(
