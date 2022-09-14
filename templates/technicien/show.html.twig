@@ -104,7 +104,7 @@
 
                         <div class="d-flex justify-content-start">
                             {% if is_granted('ROLE_TECHNICIEN') and app.user.id == technicien.id %}
-                                <a href="{{ path('techniciens_edit', {'id': technicien.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                                <a href="{{ path('techniciens_edit', {'id': technicien.id}) }}" type="button" class="btn btn-success me-2">Modifier</a>
                             {% endif %}
                             
                             <a class="btn btn-secondary" href="{{ path('techniciens') }}">Liste</a>

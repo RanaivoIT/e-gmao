@@ -85,7 +85,7 @@
 
                         <div class="d-flex justify-content-start">
                             {% if app.user.id == admin.id %}
-                                <a href="{{ path('administrateurs_edit', {'id': admin.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                                <a href="{{ path('administrateurs_edit', {'id': admin.id}) }}" type="button" class="btn btn-success me-2">Modifier</a>
                             {% endif %}
                             <a href="{{ path('administrateurs') }}" class="btn btn-secondary">Liste</a>
                         </div>
