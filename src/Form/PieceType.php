@@ -16,7 +16,6 @@ class PieceType extends AbstractType
             ->add('abbreviation')
             ->add('reference')
             ->add('amount')
-            ->add('organe')
         ;
     }
 
