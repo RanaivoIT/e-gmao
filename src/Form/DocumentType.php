@@ -25,7 +25,7 @@ class DocumentType extends AbstractType
             ->add('data', FileType::class, [
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '20480k',
                         'mimeTypes' => [
                             'application/pdf', 
                             'application/msword',

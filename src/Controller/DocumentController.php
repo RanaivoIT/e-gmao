@@ -39,7 +39,7 @@ class DocumentController extends AbstractController
                 $filename = "document" . mt_rand(1000000, 9999999) . "." . $doc->guessExtension();
                 try {
                     $doc->move(
-                        $this->getParameter('pictures_directory'),
+                        $this->getParameter('docs_directory'),
                         $filename
                     );
                 } catch (FileException $e) {
@@ -74,7 +74,7 @@ class DocumentController extends AbstractController
     {
         return $this->render('document/show.html.twig', [
             'title' => 'Documents - Show',
-            'url_doc'=> $this->getParameter('pictures_url') . $document->getData(),
+            'url_doc'=> $this->getParameter('docs_url') . $document->getData(),
             'document' => $document
         ]);
     }
@@ -82,7 +82,7 @@ class DocumentController extends AbstractController
     #[Route('/documents/{id}/pdf', name: 'documents_pdf')]
     public function pdf(Document $document): Response
     {
-        return new BinaryFileResponse($this->getParameter('pictures_directory') . '/' . $document->getData());
+        return new BinaryFileResponse($this->getParameter('docs_directory') . '/' . $document->getData());
     }
 
     #[Route('/documents/{id}/edit', name: 'documents_edit')]
@@ -96,10 +96,10 @@ class DocumentController extends AbstractController
             
             $doc = $form->get('data')->getData();
             if ($doc) {
-                $filename = "document" . mt_rand(1000000, 9999999) . "." . $doc->guessExtension();
+                $filename = $document->getData();
                 try {
                     $doc->move(
-                        $this->getParameter('pictures_directory'),
+                        $this->getParameter('docs_directory'),
                         $filename
                     );
                 } catch (FileException $e) {
@@ -109,6 +109,9 @@ class DocumentController extends AbstractController
                 $document->setName($form->get('name')->getData());
                 $document->setColection($form->get('colection')->getData());
             }
+
+            $manager->persist($document);
+            $manager->flush();
 
             $this->addFlash(
                 'success',
