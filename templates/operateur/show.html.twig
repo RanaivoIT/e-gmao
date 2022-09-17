@@ -85,7 +85,10 @@
 
                         <div class="d-flex justify-content-start">
                             {% if is_granted('ROLE_OPERATEUR') and app.user.id == operateur.id %}
-                                <a href="{{ path('operateurs_edit', {'id': operateur.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                                <a href="{{ path('operateurs_edit', {'id': operateur.id}) }}" type="button" class="btn btn-success me-2">Modifier</a>
+                            {% endif %}
+                            {% if is_granted('ROLE_OPERATEUR') and app.user.id == operateur.id %}
+                                <a href="{{ path('operateurs_password', {'id': operateur.id}) }}" type="button" class="btn btn-success me-2">Modifier le mot de passe</a>
                             {% endif %}
                             <a class="btn btn-secondary" href="{{ path('operateurs') }}">Liste</a>
                         </div>

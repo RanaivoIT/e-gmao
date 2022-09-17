@@ -38,7 +38,7 @@ class SiteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $site
-                ->setPicture('site.jpg');
+                ->setPicture('hospitale.jpg');
                 
             $manager->persist($site);
             $manager->flush();

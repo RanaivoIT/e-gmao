@@ -18,7 +18,7 @@ class OrganeController extends AbstractController
     public function index(OrganeRepository $repo): Response
     {
         $organes = $repo->findAll();
-        return $this->render('colection/organe/index.html.twig', [
+        return $this->render('organe/index.html.twig', [
             'title' => 'Organes',
             'organes' => $organes,
         ]);
@@ -32,6 +32,11 @@ class OrganeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
+            foreach ($organe->getPieces() as $piece) {
+                $piece->setOrgane($organe);
+                $manager->persist($piece);
+            }
+
             $manager->persist($organe);
             $manager->flush();
 
@@ -45,7 +50,7 @@ class OrganeController extends AbstractController
             ]);
         }
 
-        return $this->render('organes/add.html.twig', [
+        return $this->render('organe/add.html.twig', [
             'title' => 'Organes - Add',
             'organe' => $organe,
             'form' => $form->createView()
@@ -66,7 +71,10 @@ class OrganeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            foreach ($organe->getPieces() as $piece) {
+                $piece->setOrgane($organe);
+                $manager->persist($piece);
+            }
             $manager->persist($organe);
             $manager->flush();
 

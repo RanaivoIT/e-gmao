@@ -24,3 +24,61 @@
     </div>
 </div>
 {% endblock %}
+
+{% block _organe_pieces_widget %}
+    {{ form_widget(form) }}
+    <button type="button" class="btn btn-warning" id="add-piece"> Ajouter une piece </button>   
+{% endblock %}
+
+{% block _organe_pieces_entry_row %}
+    {{ form_widget(form)}}
+{% endblock %}
+
+{% block _organe_pieces_entry_widget %}
+    <div class="mb-3" id="block_{{id}}">
+
+        <hr>
+
+        {{ form_widget(form) }}
+    
+        <button type="button" class="btn btn-danger" id="delete-piece" data-action="delete" data-target="block_{{id}}"> X </button>
+        
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+    const addService = document.getElementById('add-piece');
+    addService.addEventListener('click', () => {
+        
+        const index =Math.round(Math.random()*1000)
+
+        let tmpl = document.getElementById('organe_pieces').dataset.prototype.replace(/__name__/g, index)
+
+        let div = document.createElement('div')
+        div.innerHTML = tmpl
+
+        document.getElementById('organe_pieces').appendChild(div)
+
+        handleDeleteButton()
+
+    })
+
+    function handleDeleteButton() {
+        document.querySelectorAll('button[data-action="delete"]').forEach((e) => {
+            const target = e.dataset.target
+            e.addEventListener(
+                'click',
+                () => {
+                    document.getElementById(target).remove()
+                }
+            )
+        })
+    }
+
+    handleDeleteButton()
+
+</script>
+
+{% endblock %}

@@ -5,7 +5,7 @@
 <div class="content my-4">
     <div class="card">
         <div class="card-header">
-            <span class="card-title h5">Liste des Collections</span>
+            <span class="card-title h5">Liste des Organes</span>
         </div>
         <div class="card-body">
 
@@ -20,8 +20,8 @@
                             <th>ID</th>
                             <th>Nom</th>
                             <th>Abreviation</th>
-                            <th>Fabricant</th>
-                            <th>Origine</th>
+                            <th>Description</th>
+                            <th>Pièces</th>
                         </tr>
                     </thead>
                     
@@ -31,8 +31,8 @@
                                 <td> <a href="{{ path('organes_show', {'id': organe.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ organe.id }}</a> </td>
                                 <td>{{ organe.name }}</td>
                                 <td>{{ organe.abbreviation }}</td>
-                                <td>{{ organe.maker }}</td>
-                                <td>{{ organe.origin }}</td>
+                                <td>{{ organe.description }}</td>
+                                <td>{{ organe.pieces | length }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

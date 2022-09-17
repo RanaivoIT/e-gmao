@@ -67,7 +67,7 @@ class AppFixtures extends Fixture
                  ->setAddress($faker->address())
                  ->setContact($faker->phoneNumber())
                  ->setEmail($faker->companyEmail())
-                 ->setPicture("site.jpg");
+                 ->setPicture("hospitale.jpg");
  
             for ($j=0; $j < mt_rand(2, 5); $j++) { 
                 $user = new Operateur();

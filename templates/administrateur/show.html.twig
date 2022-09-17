@@ -86,8 +86,10 @@
                         <div class="d-flex justify-content-start">
                             {% if app.user.id == admin.id %}
                                 <a href="{{ path('administrateurs_edit', {'id': admin.id}) }}" type="button" class="btn btn-success me-2">Modifier</a>
+                                <a href="{{ path('administrateurs_password', {'id': admin.id}) }}" type="button" class="btn btn-warning me-2">Modifier le mot de passe</a>
                                 <a href="{{ path('administrateurs_remove', {'id': admin.id}) }}" type="button" class="btn btn-danger me-2">Supprimer</a>
                             {% endif %}
+                            
                             <a href="{{ path('administrateurs') }}" class="btn btn-secondary">Liste</a>
                         </div>
                         

@@ -1,20 +1,52 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello DocumentController!{% endblock %}
-
+{% extends "base.html.twig" %}
+{% block title %} {{title}} {% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/workspace/e-gmao/src/Controller/DocumentController.php'|file_link(0) }}">src/Controller/DocumentController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/workspace/e-gmao/templates/document/index.html.twig'|file_link(0) }}">templates/document/index.html.twig</a></code></li>
-    </ul>
+<div class="content my-4">
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title h5">Liste des documents</span>
+        </div>
+        <div class="card-body">
+            {% if is_granted('ROLE_ADMINISTRATEUR') %}
+                <div class="mb-3 d-flex justify-content-end">
+                    <a href="{{ path('documents_add') }}" class="btn btn-success">Ajouter</a>
+                </div>
+            {% endif %}   
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Collection</th>
+                            <th>Nom</th>
+                            <th>Fichier</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for document in documents %}
+                            <tr>
+                                <td> <a href="{{ path('documents_show', {'id': document.id}) }}" class="link-primary" class="link-primary text-decoration-none">{{ document.id }}</a> </td>
+                                <td>{{ document.colection.name }}</td>
+                                <td>{{ document.name }}</td>
+                                <td> <a href="{{ path('documents_pdf', {'id':document.id}) }}">{{ document.data }}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const datatablesSimple = document.getElementById('dataTable');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
+            }
+        });
+    </script>
 {% endblock %}

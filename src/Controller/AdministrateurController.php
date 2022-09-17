@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\PassType;
 use App\Form\PictureType;
-use App\Form\PasswordType;
 use App\Entity\Administrateur;
 use App\Form\AdministrateurType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -163,14 +163,14 @@ class AdministrateurController extends AbstractController
     #[Security("is_granted('ROLE_ADMINISTRATEUR') and user===admin")]
     public function password(Administrateur $admin, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
-        $form = $this->createForm(PasswordType::class, $admin);
+        $form = $this->createForm(PassType::class);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $password =  $encoder->hashPassword($admin, $form->get('password'));
             
-            if ($password == $admin->getPassword()) {
-                $newPassword =  $form->get('newPassword');
+            if ( password_verify($form->get('last_password')->getData(), $admin->getPassword())) {
+
+                $admin->setPassword($encoder->hashPassword($admin, $form->get('new_password')->getData()));
                 $manager->persist($admin);
                 $manager->flush();
                 $this->addFlash(
