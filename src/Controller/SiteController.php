@@ -138,4 +138,17 @@ class SiteController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/sites/{id}/remove', name: 'sites_remove')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
+    public function remove(Site $colection, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($colection);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            "Vous avez supprimé le site " . $colection->getId() . " !!!"
+        );
+        return $this->redirectToRoute('site');
+    }
 }

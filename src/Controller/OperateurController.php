@@ -180,5 +180,17 @@ class OperateurController extends AbstractController
         ]);
         
     }
+    #[Route('/operateurs/{id}/remove', name: 'operateurs_remove')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
+    public function remove(Operateur $colection, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($colection);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            "Vous avez supprimé l'operateur " . $colection->getId() . " !!!"
+        );
+        return $this->redirectToRoute('operateurs');
+    }
 
 }

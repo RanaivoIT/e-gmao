@@ -183,4 +183,16 @@ class TechnicienController extends AbstractController
         
         
     }
+    #[Route('/techniciens/{id}/remove', name: 'techniciens_remove')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
+    public function remove(Techniciens $colection, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($colection);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            "Vous avez supprimé le document " . $colection->getId() . " !!!"
+        );
+        return $this->redirectToRoute('techniciens');
+    }
 }

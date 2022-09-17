@@ -63,6 +63,20 @@ class AdministrateurController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/administrateurs/{id}/remove', name: 'administrateurs_remove')]
+    #[Security("is_granted('ROLE_ADMINISTRATEUR') and user===admin")]
+    public function remove(Administrateur $admin, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($admin);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            "Vous avez supprimé votre compte administrateur !!!"
+        );
+        return $this->redirectToRoute('login');
+    }
+
     #[Route('/administrateurs/{id}', name: 'administrateurs_show')]
     #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function show(Administrateur $admin): Response

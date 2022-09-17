@@ -69,7 +69,8 @@
                         
                         <div class="d-flex justify-content-start">
                             {% if is_granted('ROLE_ADMINISTRATEUR') %}
-                                <a href="{{ path('colections_edit', {'id': colection.id}) }}" type="button" class="btn btn-success">Modifier</a>
+                                <a href="{{ path('colections_edit', {'id': colection.id}) }}" type="button" class="btn btn-success me-2">Modifier</a>
+                                <a href="{{ path('colections_remove', {'id': colection.id}) }}" type="button" class="btn btn-danger me-2">Supprimer</a>
                             {% endif %}
                             <a class="btn btn-secondary" href="{{ path('colections') }}">Liste</a>
 

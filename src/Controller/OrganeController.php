@@ -86,4 +86,18 @@ class OrganeController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/organes/{id}/remove', name: 'organes_remove')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
+    public function remove(Organe $colection, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($colection);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            "Vous avez supprimé l'organe " . $colection->getId() . " !!!"
+        );
+        return $this->redirectToRoute('organes');
+    }
+    
 }

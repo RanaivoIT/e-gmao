@@ -68,6 +68,18 @@ class EquipementController extends AbstractController
             'equipement' => $equipement
         ]);
     }
+    #[Route('/equipements/{id}/remove', name: 'equipements_remove')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
+    public function remove(Document $colection, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($colection);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            "Vous avez supprimé l'equipement " . $colection->getId() . " !!!"
+        );
+        return $this->redirectToRoute('equipements');
+    }
     #[Route('/equipements/{id}/edit', name: 'equipements_edit')]
     #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function edit(Equipement $equipement, Request $request, EntityManagerInterface $manager): Response

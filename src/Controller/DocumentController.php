@@ -59,6 +59,18 @@ class DocumentController extends AbstractController
             'document' => $document
         ]);
     }
+    #[Route('/documents/{id}/remove', name: 'documents_remove')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
+    public function remove(Document $colection, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($colection);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            "Vous avez supprimé le document " . $colection->getId() . " !!!"
+        );
+        return $this->redirectToRoute('documents');
+    }
     #[Route('/documents/{id}/edit', name: 'documents_edit')]
     #[IsGranted('ROLE_ADMINISTRATEUR')]
     public function edit(Document $document, Request $request, EntityManagerInterface $manager): Response

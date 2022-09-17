@@ -66,6 +66,19 @@ class ColectionController extends AbstractController
             'colection' => $colection
         ]);
     }
+
+    #[Route('/colections/{id}/remove', name: 'colections_remove')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
+    public function remove(Colection $colection, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($colection);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            "Vous avez supprimé la collection " . $colection->getId() . " !!!"
+        );
+        return $this->redirectToRoute('colections');
+    }
     #[Route('/colections/{id}/edit', name: 'colections_edit')]
     public function edit(Colection $colection, Request $request, EntityManagerInterface $manager): Response
     {

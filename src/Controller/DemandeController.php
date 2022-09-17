@@ -99,4 +99,16 @@ class DemandeController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    #[Route('/demandes/{id}/remove', name: 'demandes_remove')]
+    #[Security("is_granted('ROLE_ADMINISTRATEUR') and and user.getSite() == demande.getEquipement().getSite()")]
+    public function remove(Demande $admin, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($admin);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            "Vous avez supprimé votre compte administrateur !!!"
+        );
+        return $this->redirectToRoute('demandes');
+    }
 }

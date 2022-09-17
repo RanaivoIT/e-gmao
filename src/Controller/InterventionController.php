@@ -104,4 +104,16 @@ class InterventionController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    #[Route('/interventions/{id}/remove', name: 'interventions_remove')]
+    #[IsGranted('ROLE_ADMINISTRATEUR')]
+    public function remove(Intervention $colection, EntityManagerInterface $manager): Response
+    {
+        $manager->remove($colection);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            "Vous avez supprimé l'intervention " . $colection->getId() . " !!!"
+        );
+        return $this->redirectToRoute('interventions');
+    }
 }
