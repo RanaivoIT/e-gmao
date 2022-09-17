@@ -100,14 +100,14 @@ class DemandeController extends AbstractController
         ]);
     }
     #[Route('/demandes/{id}/remove', name: 'demandes_remove')]
-    #[Security("is_granted('ROLE_ADMINISTRATEUR') and and user.getSite() == demande.getEquipement().getSite()")]
-    public function remove(Demande $admin, EntityManagerInterface $manager): Response
+    #[Security("(is_granted('ROLE_OPERATEUR') and user.getSite() == demande.getEquipement().getSite()) or is_granted('ROLE_ADMINISTRATEUR') ")]
+    public function remove(Demande $demande, EntityManagerInterface $manager): Response
     {
-        $manager->remove($admin);
+        $manager->remove($demande);
         $manager->flush();
         $this->addFlash(
             'success',
-            "Vous avez supprimé votre compte administrateur !!!"
+            "Vous avez supprimé la demande !!!"
         );
         return $this->redirectToRoute('demandes');
     }

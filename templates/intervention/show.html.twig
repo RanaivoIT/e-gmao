@@ -123,6 +123,7 @@
                         <div class="d-flex justify-content-start">
                             {% if is_granted('ROLE_ADMINISTRATEUR') or (is_granted('ROLE_TECHNICIEN')) %}
                                 <a href="{{ path('interventions_edit', {'id': intervention.id}) }}" type="button" class="btn btn-success me-2">Modifier</a>
+                                <a href="{{ path('interventions_remove', {'id': intervention.id}) }}" type="button" class="btn btn-danger me-2">Supprimer</a>
                             {% endif %}
                             <a class="btn btn-primary me-2" href="">Imprimer</a>
                             <a class="btn btn-secondary" href="{{ path('interventions') }}">Liste</a>

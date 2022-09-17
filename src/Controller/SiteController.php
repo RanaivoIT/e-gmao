@@ -149,6 +149,6 @@ class SiteController extends AbstractController
             'success',
             "Vous avez supprimé le site " . $colection->getId() . " !!!"
         );
-        return $this->redirectToRoute('site');
+        return $this->redirectToRoute('sites');
     }
 }

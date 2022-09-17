@@ -146,7 +146,7 @@ class TechnicienController extends AbstractController
     }
 
     #[Route('/techniciens/{id}/password', name: 'techniciens_password')]
-    #[Security("is_granted('ROLE_TECHNICIEN') and user===tech")]
+    #[Security("is_granted('ROLE_TECHNICIEN') and user===technicien")]
     public function password(Technicien $technicien, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
         
@@ -185,13 +185,13 @@ class TechnicienController extends AbstractController
     }
     #[Route('/techniciens/{id}/remove', name: 'techniciens_remove')]
     #[IsGranted('ROLE_ADMINISTRATEUR')]
-    public function remove(Techniciens $colection, EntityManagerInterface $manager): Response
+    public function remove(Technicien $colection, EntityManagerInterface $manager): Response
     {
         $manager->remove($colection);
         $manager->flush();
         $this->addFlash(
             'success',
-            "Vous avez supprimé le document " . $colection->getId() . " !!!"
+            "Vous avez supprimé le technicien " . $colection->getId() . " !!!"
         );
         return $this->redirectToRoute('techniciens');
     }

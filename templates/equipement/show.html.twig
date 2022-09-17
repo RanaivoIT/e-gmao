@@ -90,6 +90,7 @@
                             
                             {% if is_granted('ROLE_ADMINISTRATEUR') %}
                                 <a href="{{ path('equipements_edit', {'id': equipement.id}) }}" class="btn btn-success me-2">Modifier</a>
+                                <a href="{{ path('equipements_remove', {'id': equipement.id}) }}" class="btn btn-danger me-2">Supprimer</a>
                             {% endif %}
                             <a class="btn btn-primary me-2" href="">Imprimer</a>
                             <a class="btn btn-secondary" href="{{ path('equipements') }}">Liste</a>

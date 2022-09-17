@@ -75,8 +75,13 @@
                         <hr>
 
                         <div class="d-flex justify-content-start">
-                            <a href="{{ path('sites_edit', {'id': site.id}) }}" type="button" class="btn btn-success me-2">Modifier</a>
-                            <!--<button type="button" class="btn btn-outline-danger disabled ms-1">Supprimer</button>-->
+                            
+                            {% if is_granted('ROLE_ADMINISTRATEUR') %}
+                                <a href="{{ path('sites_edit', {'id': site.id}) }}" type="button" class="btn btn-success me-2">Modifier</a>
+                                <a href="{{ path('sites_remove', {'id': site.id}) }}" class="btn btn-danger me-2">Supprimer</a>
+                            {% endif %}
+                            <a class="btn btn-primary me-2" href="">Imprimer</a>
+                            <a class="btn btn-secondary" href="{{ path('sites') }}">Liste</a>
                         </div>
                         
                     </div>

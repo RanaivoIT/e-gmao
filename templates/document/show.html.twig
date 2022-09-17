@@ -52,6 +52,7 @@
                         <div class="d-flex justify-content-start">
                             {% if is_granted('ROLE_ADMINISTRATEUR') %}
                                 <a href="{{ path('documents_edit', {'id': document.id}) }}" type="button" class="btn btn-success me-2">Modifier</a>
+                                <a href="{{ path('documents_remove', {'id': document.id}) }}" type="button" class="btn btn-danger me-2">Supprimer</a>
                             {% endif %}
                             <a class="btn btn-secondary" href="{{ path('documents') }}">Liste</a>
 
