@@ -108,4 +108,14 @@ class EquipementController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/equipements/{id}/imprimer', name: 'equipements_imprimer')]
+    public function imprimer(Equipement $equipement): Response
+    {
+        return $this->render('equipement/imprimer.html.twig', [
+            'title' => 'Equipement - Imprimer',
+            'equipement' => $equipement
+        ]);
+    }
+
 }

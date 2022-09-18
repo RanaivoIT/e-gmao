@@ -111,4 +111,15 @@ class DemandeController extends AbstractController
         );
         return $this->redirectToRoute('demandes');
     }
+
+    #[Route('/demandes/{id}/imprimer', name: 'demandes_imprimer')]
+    public function imprimer(Demande $demande): Response
+    {
+        return $this->render('demande/imprimer.html.twig', [
+            'title' => 'Demandes - Imprimer',
+            'demande' => $demande
+        ]);
+    }
+
+    
 }

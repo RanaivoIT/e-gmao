@@ -20,14 +20,16 @@ class EquipementType extends AbstractType
         $builder
             ->add('colection', EntityType::class, [
                 'class'  => Colection::class,
+                'label' => 'Collection',
                 'choice_label' => 'name'
             ])
             ->add('site', EntityType::class, [
                 'class'  => Site::class,
                 'choice_label' => 'name'
             ])
-            ->add('name')
             ->add('service')
+            ->add('name')
+            ->add('reference')
             ->add('usedAt', DateTimeType::class, [
                 'widget' => 'single_text',
                 'input'  => 'datetime_immutable'

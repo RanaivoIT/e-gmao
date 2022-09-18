@@ -148,7 +148,7 @@ class OperateurController extends AbstractController
     #[Security("is_granted('ROLE_OPERATEUR') and user===operateur")]
     public function password(Operateur $operateur, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
     {
-        $form = $this->createForm(PassType::class, $admin);
+        $form = $this->createForm(PassType::class);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {

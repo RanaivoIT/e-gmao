@@ -1,12 +1,17 @@
-{% extends "base.html.twig" %}
+{% extends "base.imprimer.html.twig" %}
 {% block title %} {{title}} {% endblock %}
 {% block body %}
 
 <div class="content">
     <div class="card  my-4">
         <div class="card-header">
-            <span class="card-title h5">Voir la intervention</span>
+            <span class="card-title h5">Fiche d'intervention FI/{{ "%06d"|format(intervention.id) }}</span>
         </div>
+
+    <div class="container text-center">
+        <img src="{{ '/img/logo.jpg '}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+    </div>
+
         <div class="card-body">
 
             <div class="row d-flex align-items-stretch">
@@ -97,19 +102,10 @@
                         </div>
                         <hr>
 
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">State</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ intervention.state }}</p>
-                            </div>
-                        </div>
-                        <hr>
 
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Techs</p>
+                                <p class="mb-0">Techniciens</p>
                             </div>
                             <div class="col-sm-9">
                                 {% for tech in intervention.techniciens %}
@@ -118,16 +114,7 @@
                                 
                             </div>
                         </div>
-                        <hr>
-
-                        <div class="d-flex justify-content-start">
-                            {% if is_granted('ROLE_ADMINISTRATEUR') or (is_granted('ROLE_TECHNICIEN')) %}
-                                <a href="{{ path('interventions_edit', {'id': intervention.id}) }}" type="button" class="btn btn-success me-2">Modifier</a>
-                                <a href="{{ path('interventions_remove', {'id': intervention.id}) }}" type="button" class="btn btn-danger me-2">Supprimer</a>
-                            {% endif %}
-                            <a class="btn btn-primary me-2" href="{{ path('interventions_imprimer', {'id': intervention.id}) }}">Imprimer</a>
-                            <a class="btn btn-secondary" href="{{ path('interventions') }}">Liste</a>
-                        </div>
+                        
                         
                     </div>
 

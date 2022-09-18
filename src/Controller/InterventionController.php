@@ -116,4 +116,12 @@ class InterventionController extends AbstractController
         );
         return $this->redirectToRoute('interventions');
     }
+    #[Route('/interventions/{id}/imprimer', name: 'interventions_imprimer')]
+    public function imprimer(Intervention $intervention): Response
+    {
+        return $this->render('intervention/imprimer.html.twig', [
+            'title' => 'Interventions - Imprimer',
+            'intervention' => $intervention
+        ]);
+    }
 }

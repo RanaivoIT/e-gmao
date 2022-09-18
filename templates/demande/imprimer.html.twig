@@ -1,12 +1,17 @@
-{% extends "base.html.twig" %}
+{% extends "base.imprimer.html.twig" %}
 {% block title %} {{title}} {% endblock %}
 {% block body %}
 
 <div class="content">
     <div class="card  my-4">
         <div class="card-header">
-            <span class="card-title h5">Voir la demande</span>
+            <span class="card-title h5">Bon de réparation BR/{{ "%06d"|format(demande.id) }}</span>
         </div>
+
+    <div class="container text-center">
+        <img src="{{ '/img/logo.jpg '}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+    </div>
+
         <div class="card-body">
 
             <div class="row d-flex align-items-stretch">
@@ -68,25 +73,8 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Etat</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ demande.state }}</p>
-                            </div>
-                        </div>
-                        
-                        <hr>
+                       
 
-                        <div class="d-flex justify-content-start">
-                            {% if is_granted('ROLE_ADMINISTRATEUR') or is_granted('ROLE_OPERATEUR') %}
-                                <a href="{{ path('demandes_edit', {'id':demande.id}) }}" type="button" class="btn btn-success  me-2">Modifier</a>
-                                <a href="{{ path('demandes_remove', {'id':demande.id}) }}" type="button" class="btn btn-danger  me-2">Supprimer</a>
-                            {% endif %}
-                            <a class="btn btn-primary me-2" href="{{ path('demandes_imprimer' , {'id':demande.id}) }}">Imprimer</a>
-                            <a class="btn btn-secondary" href="{{ path('demandes') }}">Liste</a>
-                        </div>
                         
                     </div>   
                 </div>

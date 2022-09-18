@@ -44,6 +44,9 @@ class Equipement
     #[ORM\OneToMany(mappedBy: 'equipement', targetEntity: Intervention::class, orphanRemoval: true)]
     private Collection $interventions;
 
+    #[ORM\Column(length: 255)]
+    private ?string $reference = null;
+
 
     public function __construct()
     {
@@ -196,6 +199,18 @@ class Equipement
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(string $reference): self
+    {
+        $this->reference = $reference;
 
         return $this;
     }

@@ -20,8 +20,8 @@ class InterventionType extends AbstractType
         $builder
             ->add('type',ChoiceType::class, [
                 'choices'  => [
-                    'CURRATIF'=>'CURRATIF',
-                    'PREVENTIF' => 'PREVENTIF'
+                    'CORRECTIVE'=>'CORRECTIVE',
+                    'PREVENTIVE' => 'PREVENTIVE'
                 ]
             ])
             ->add('equipement', EntityType::class, [
@@ -43,7 +43,7 @@ class InterventionType extends AbstractType
             ->add('comment')
             ->add('state',ChoiceType::class, [
                 'choices'  => [
-                    'En Attente'=>'En Attente',
+                    'En attente'=>'En attente',
                     'En cours' => 'En cours',
                     'Soldé' => 'Soldé'
                 ]
