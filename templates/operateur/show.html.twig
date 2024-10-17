@@ -91,7 +91,10 @@
                             {% if is_granted('ROLE_ADMINISTRATEUR') %}
                                 <a href="{{ path('operateurs_remove', {'id': operateur.id}) }}" type="button" class="btn btn-danger me-2">Supprimer</a>
                             {% endif %}
-                            <a class="btn btn-secondary" href="{{ path('operateurs') }}">Liste</a>
+                            {% if is_granted('ROLE_ADMINISTRATEUR') %}
+                                <a class="btn btn-secondary" href="{{ path('operateurs') }}">Liste</a>
+                            {% endif %}
+                            
                         </div>
                         
                     </div>
